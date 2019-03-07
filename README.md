@@ -47,9 +47,4 @@ Task has following data fields
 * Response HTTP status
 * Response body
 
-## Delivery method
-
-Public git repository (Github / Bitbucket) is preferred. Other methods are acceptable as well.
-
-Please log how much of your time was spent for the task (with 1 min precision)
 ![Alt](queue.png)
