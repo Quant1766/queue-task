@@ -3,6 +3,14 @@
 Create a simple service prototype with a basic queue.
 
 ## “Send” method 
+example:
+  Post    <http://127.0.0.1:8888/send> json { "url": "https://stackoverflow.com/"}
+  response {
+  "url": "https://stackoverflow.com/",
+  "task id": "1",
+  "Error": "None"
+}
+  
 
 **Receives** a POST request with data in JSON.
 
@@ -11,6 +19,19 @@ Request body has “URL” parameter.
 **Returns** ID of a created task (JSON).
 
 ## “Result” method
+
+  example:
+  Get    <http://127.0.0.1:8888/send> json { "url": "https://stackoverflow.com/"}
+  response {
+  "id": "1",
+  "url": "https://stackoverflow.com/",
+  "Status": "Completed",
+  "RESP C Len": 262012,
+  "RESP Status": 200,
+  "RESP Body": <html code>}
+ 
+ 
+
 
 **Receives** a GET request with ID param.
 
