@@ -5,6 +5,7 @@ Create a simple service prototype with a basic queue.
 ## “Send” method 
 example:
   Post    <http://127.0.0.1:8888/send> json { "url": "https://stackoverflow.com/"}
+  
   response {
   "url": "https://stackoverflow.com/",
   "task id": "1",
@@ -21,6 +22,7 @@ Request body has “URL” parameter.
 ## “Result” method
 
   example:
+  
   Get    <http://127.0.0.1:8888/send> json { "url": "https://stackoverflow.com/"}
   response {
   "id": "1",
@@ -31,7 +33,6 @@ Request body has “URL” parameter.
   "RESP Body": <html code>}
  
  
-
 
 **Receives** a GET request with ID param.
 
