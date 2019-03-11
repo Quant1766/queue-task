@@ -33,7 +33,7 @@ class NoResultError(Exception):
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r"/result/(\d+)", RESULT),
+            (r"/result/*(\d+)*/*", RESULT),
             (r"/send", SEND),
         ]
 
@@ -119,15 +119,34 @@ async def worker():
 class RESULT(tornado.web.RequestHandler):
 
     def get(self, *args, **kwargs):
-        logger.info("Get info of task id: {0}".format(args[0]))
-        resp = {}
-        resp["id"] = args[0]
 
-        if args[0] in list(Q.tasks.keys()):
-            resp.update(Q.info(args[0]))
+        resp = {}
+        if args[0] ==None:
+            logger.info("Get info of latt 10 task")
+            resp["tasks"] =list()
+            for task_id in list(Q.tasks.keys())[-10:]:
+                try:
+
+                    info_task = Q.tasks[task_id]
+                    info_task["id"] = task_id
+                    resp["tasks"].append(info_task)
+                except:
+                    print("except")
+
             resp["Error"] = "None"
+
+
         else:
-            resp["Error"] = "Task ID not defined"
+            logger.info("Get info of task id: {0}".format(args[0]))
+
+
+            resp["id"] = args[0]
+
+            if args[0] in list(Q.tasks.keys()):
+                resp.update(Q.info(args[0]))
+                resp["Error"] = "None"
+            else:
+                resp["Error"] = "Task ID not defined"
         return self.write(json.dumps(resp))
 
 class SEND(tornado.web.RequestHandler):
